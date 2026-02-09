@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payal 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --pink1:#ff8fb1;
+  --pink2:#ff5f8f;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#ffc3a0,#ffafbd,#ff8fb1);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  animation:float 6s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-25px)}
+}
+
+/* Card */
+.card{
+  width:100%;
+  max-width:420px;
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(25px);
+  border-radius:36px;
+  padding:45px 30px;
+  text-align:center;
+  box-shadow:0 30px 60px rgba(0,0,0,.25);
+}
+
+.hidden{
+  display:none;
+}
+
+h1{
+  font-family:'Pacifico',cursive;
+  color:rgb(197, 17, 17);
+  font-size:2.6rem;
+  margin-bottom:18px;
+}
+
+#comment{
+  color:rgb(203, 71, 71);
+  font-size:1.15rem;
+  margin-bottom:30px;
+  min-height:60px;
+  font-weight: bold;
+}
+
+/* Buttons area */
+/* .btn-area{
+  position:relative;
+  height:140px;
+} */
+
+button{
+  padding:16px 40px;
+  border:none;
+  border-radius:50px;
+  font-size:1.15rem;
+  cursor:pointer;
+}
+
+#yesBtn{
+  background:white;
+  color:#852b3c;
+  font-weight:600;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+}
+
+/* NO button — visible by default */
+#noBtn{
+  background:#ff4d6d;
+  color:white;
+  position: fixed;
+  left: 50%;
+  top: 65%;
+  transform: translate(-50%, -50%);
+  z-index: 100000;        /* MOST IMPORTANT */
+  pointer-events: auto;  /* ENSURES CLICK WORKS */
+}
+
+
+/* Page 2 */
+.photo{
+    width: 285px;
+    height: 230px;
+    margin: 25px auto;
+    border-radius: 52%;
+    border: 2px solid rgb(214, 187, 135);
+  overflow:hidden;
+  animation:pop .8s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0)}
+  to{transform:scale(1)}
+}
+
+.photo img{
+  width: 100%;
+    height: 131%;
+  object-fit:cover;
+}
+
+#finalText{
+  color:rgb(172, 28, 28);
+  font-size:1.15rem;
+  line-height:1.7;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Romantic Music -->
+<audio id="music" loop>
+  <source src="whatsapp-audio-2026-02-09-at-001833_Ck5eWhIX.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* Floating hearts */
+const items=["💖","❤️","✨","🌸","😘","💕","💍","😍","😘",];
+for(let i=0;i<40;i++){
+  const d=document.createElement("div");
+  d.className="heart";
+  d.innerText=items[Math.floor(Math.random()*items.length)];
+  d.style.left=Math.random()*100+"vw";
+  d.style.top=Math.random()*100+"vh";
+  d.style.fontSize=18+Math.random()*25+"px";
+  d.style.animationDelay=Math.random()*0+"s";
+  document.body.appendChild(d);
+}
+</script>
+<button id="noBtn">No 🥺</button>
+
+<div class="card" id="page1">
+  <h1>Will you be my Valentine? 💖 <br> Payal Baby 💕</h1>
+  <div id="comment">My heart has something important to ask you…</div>
+
+  <div class="btn-area">
+    <button id="yesBtn">YES 💍💖</button>
+    <!-- <button id="noBtn">No 🥺</button> -->
+  </div>
+</div>
+
+<div class="card hidden" id="page2">
+  <h1>Said YES 😍</h1>
+
+  <div class="photo">
+    <img src="WhatsApp Image 2026-02-09 at 19.44.32.jpeg" alt="Us">
+  </div>
+
+  <div id="finalText"></div>
+</div>
+
+<script>
+const noBtn=document.getElementById("noBtn");
+noBtn.style.transform = "none";
+const yesBtn=document.getElementById("yesBtn");
+const comment=document.getElementById("comment");
+const page1=document.getElementById("page1");
+const page2=document.getElementById("page2");
+const music=document.getElementById("music");
+
+const lines=[
+  "Are you 100% sure? 🥺💔",
+  "My heart just skipped a beat… in pain 😭",
+  "Hey! That NO button is not for you 😤",
+  "I can already see us on cute dates 🥹☕",
+  "Someone just broke my imaginary heart 💘💥",
+  "Plot twist: You secretly want to click YES 😏",
+  "The universe says YES… just saying 🌌❤️",
+
+];
+
+let i=0;
+
+/* NO button movement — ALWAYS visible */
+function moveNo() {
+  const padding = 20;
+
+  // Force correct size read
+  const btnWidth = noBtn.getBoundingClientRect().width;
+  const btnHeight = noBtn.getBoundingClientRect().height;
+
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  // Absolute safe bounds
+  const minX = padding;
+  const minY = padding;
+  const maxX = vw - btnWidth - padding;
+  const maxY = vh - btnHeight - padding;
+
+  // If screen is too small, center instead of hiding
+  if (maxX <= minX || maxY <= minY) {
+    noBtn.style.left = "50%";
+    noBtn.style.top = "70%";
+    noBtn.style.transform = "translate(-50%, -50%)";
+    return;
+  }
+
+  const x = minX + Math.random() * (maxX - minX);
+  const y = minY + Math.random() * (maxY - minY);
+
+  noBtn.style.transform = "none";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  comment.innerText = lines[i % lines.length];
+  i++;
+}
+
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("click", moveNo);
+
+
+/* YES */
+yesBtn.addEventListener("click",()=>{
+  noBtn.style.display = "none"; 
+  page1.classList.add("hidden");
+  page2.classList.remove("hidden");
+
+  music.play().catch(()=>{}); // browser-safe
+
+  typeText(
+    "My heart chose you then, and I choose you every single day. Happy Valentine’s Day, Payal My Love ❤️🌹💍"
+  );
+});
+
+function typeText(text){
+  const el=document.getElementById("finalText");
+  let p=0;
+  function type(){
+    if(p<text.length){
+      el.innerHTML+=text.charAt(p);
+      p++;
+      setTimeout(type,45);
+    }
+  }
+  type();
+}
+</script>
+
+</body>
+</html>
